@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Busqueda de Pacientes</title>
+  <style>
+    body {
+      background-color: bisque;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 { 
+        color: black
+    }
+     
+    .search-container input {
+      padding: 5px;
+      width: 300px;
+    }
+    
+    .column-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .column {
+        padding: 10px;
+        margin: 0 10px; 
+        background-color: papayawhip;
+        border: 1px 
+
+    }
+
+    .column-title { 
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      background-color: oldlace;
+      color: lightsteelblue;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <h1>Busqueda de Pacientes</h1>
+
+    <div class ="search-container">
+        <input type="text" placeholder="Busqueda de Pacientes">
+    </div>
+
+    <div class="column-container">
+        <div class="column">
+          <div class="column-title">Nombre</div>
+          <div class="column-content">Paciente 1</div>
+          <div class="column-content">Paciente 2</div>
+    </div>
+        
+    <div class="column-container">
+            <div class="column">
+              <div class="column-title">Medico</div>
+              <div class="column-content">Medico 1</div>
+              <div class="column-content">Medico 2</div>
+
+    </div>
+    
+    <div class="column-container">
+        <div class="column">
+          <div class="column-title">Diagnostico</div>
+          <div class="column-content">Ver Diagnostico</div>
+          <button>Descargar </button>
+
+        </div>
+
+    <div class="column-container">
+        <div class="column">
+          <div class="column-title">Receta</div>
+          <div class="column-content">Ver Receta</div>
+          <button>Guardar</button>
+    </div>
+     
+</body>
+</html>
