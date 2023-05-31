@@ -14,13 +14,18 @@
     }
 
     h1 { 
-        color: black
+      color: black;
     }
      
     .search-container input {
       padding: 5px;
       width: 300px;
     }
+    label {
+          display: block;
+          margin-bottom: 10px;
+          color: currentColor;
+         }
     
     .column-container {
       display: flex;
@@ -29,17 +34,25 @@
       margin-top: 20px;
     }
 
-    .column {
-        padding: 10px;
-        margin: 0 10px; 
-        background-color: papayawhip;
-        border: 1px 
+    form {
+          background-color: sandybrown;
+          padding: 10px;
+          width: 450px;
+          border-radius: 10px;
+          margin-top: 10px;
 
     }
 
+    .column {
+      padding: 10px;
+      margin: 0 10px; 
+      background-color: papayawhip;
+      border: 1px;
+    }
+
     .column-title { 
-        font-weight: bold;
-        margin-bottom: 10px;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
 
     .button-container button {
@@ -51,44 +64,54 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    </style>
+  </style>
 </head>
 <body>
-    <h1>Busqueda de Pacientes</h1>
+  <form>
+  <h1>Busqueda de Pacientes</h1>
+  </form>
+  <form>
+  <div class ="search-container">
 
-    <div class ="search-container">
-        <input type="text" placeholder="Busqueda de Pacientes">
-    </div>
+      <input type="text" placeholder="Busqueda de Pacientes">
 
-    <div class="column-container">
-        <div class="column">
-          <div class="column-title">Nombre</div>
-          <div class="column-content">Paciente 1</div>
-          <div class="column-content">Paciente 2</div>
-    </div>
-        
-    <div class="column-container">
-            <div class="column">
-              <div class="column-title">Medico</div>
-              <div class="column-content">Medico 1</div>
-              <div class="column-content">Medico 2</div>
+  </div>
+  </form>
 
-    </div>
-    
-    <div class="column-container">
-        <div class="column">
-          <div class="column-title">Diagnostico</div>
-          <div class="column-content">Ver Diagnostico</div>
-          <button>Descargar </button>
+  <form>
+  <div class="column-container">
 
-        </div>
+      <div class="column">
+        <div class="column-title">Nombre</div>
+        <div class="column-content">Paciente 1</div>
+        <div class="column-content">Paciente 2</div>
 
-    <div class="column-container">
-        <div class="column">
-          <div class="column-title">Receta</div>
-          <div class="column-content">Ver Receta</div>
-          <button>Guardar</button>
-    </div>
-     
+  </div>
+      
+  <div class="column-container">
+
+          <div class="column">
+            <div class="column-title">Medico</div>
+            <div class="column-content">Medico 1</div>
+            <div class="column-content">Medico 2</div>
+
+  </div>
+  
+  <div class="column-container">
+
+      <div class="column">
+        <div class="column-title">Diagnostico</div>
+        <div class="column-content">Ver Diagnostico</div>
+        <button>Descargar </button>
+
+  </div>
+
+  <div class="column-container">
+      <div class="column">
+        <div class="column-title">Receta</div>
+        <div class="column-content">Ver Receta</div>
+        <button>Guardar</button>
+  </div>
+   
 </body>
 </html>

@@ -1,1 +1,51 @@
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Iniciar sesión</title>
+      <style>
+        body {background-color: salmon;
+          font-size: large;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         } 
+        h2 {
+          color: lemonchiffon;
+         }
+        form {
+          background-color: sandybrown;
+          padding: 20px;
+          width: 300px;
+          border-radius: 5px;
+        }
+        label {
+          display: block;
+          margin-bottom: 100px;
+          color: currentColor;
+         }
+        input[type="text"],
+        input[type="contraseña"] {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid rosybrown;
+         }
+        input[type="submit"] { 
+          background-color: palevioletred;
+          color: bisque;
+          border: none;
+          margin-top: 10px;
+          cursor: pointer;
+         }
+        input[type="submit"]:hover {
+          background-color: skyblue;
+         }
+      </style>
+    </head>
+<body>
+  <h2>Iniciar sesión</h2>
+  <form>
+    <label for="RFC">RFC:</label>
+    <input type="text" id="RFC" name="RFC" required><br><br>
+    
+    <label for="contraseña">Contraseña:</label>
+    <input type="contraseña" id="contraseña" name="contraseña" required><br><br>
+    <input type="submit" value="Acceder">
+</form>

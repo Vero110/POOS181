@@ -1,45 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>¡Hola!</title>
-    <style>
-      body {
-        background-color: bisque;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        text-align: center;
-      
-      }
+<head>
+  <title>¡Hola!</title>
+  <style>
+    body {
+      background-color: bisque;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-      h1 { 
-        color:darkgray;
-      }
-      
-      h2 {
-        color:black;
-      }
-      
-      .button-container { 
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-      }
+    h1 { 
+      color: whitesmoke;
+    }
+    h2 { 
+      color: black;
+    }
+     
+    .search-container input {
+      padding: 5px;
+      width: 300px;
+    }
+    label {
+          display: block;
+          margin-bottom: 10px;
+          color: currentColor;
+         }
+    
+    .column-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 20px;
+    }
 
-      .button-container button {
-        padding: 10px 20px;
-        margin: 0 10px;
-        background-color: papayawhip;
-        color:snow;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
+    form {
+          background-color: sandybrown;
+          padding: 10px;
+          width: 550px;
+          border-radius: 10px;
+          margin-top: 10px;
 
-      .button-container button:hover {
-        background-color: mintcream;
-      }
+    }
+
+    .column {
+      padding: 10px;
+      margin: 5 10px; 
+      background-color: papayawhip;
+      border: 1px;
+    }
+
+    .column-title { 
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      background-color: oldlace;
+      color: lightsteelblue;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
     </style>
   </head>
   <body>
+    <form>
     <h1>¡Hola!</h1>
     <h2>¿Qué deseas realizar?</h2>
     <div class=""button-container">
@@ -48,6 +79,7 @@
       <button>Actualizar datos</button>
       <button>Eliminar paciente</button>
     </div>
+    </form>
   </body>
   </html>
     

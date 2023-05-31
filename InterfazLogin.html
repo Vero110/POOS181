@@ -16,31 +16,31 @@
     h1 { 
       color: black;
     }
-     
-    .search-container input {
-      padding: 5px;
-      width: 300px;
+    form {
+          background-color: sandybrown;
+          padding: 10px;
+          width: 450px;
+          border-radius: 10px;
+          margin-top: 10px;
+
     }
-    
     .column-container {
       display: flex;
       flex-direction: row;
       justify-content: center;
       margin-top: 20px;
     }
+    label {
+          display: block;
+          margin-bottom: 10px;
+          color: currentColor;
+         }
+    
 
-    .button-container button {
-      padding: 10px 20px;
-      margin-bottom: 10px;
-      background-color: oldlace;
-      color: lightsteelblue;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
+  <form>
   <h1>Iniciar sesion</h1>
 
       <label for="RFC">RFC:</label>
@@ -50,6 +50,7 @@
       <input type="text" id="Contrasena" name="Contrasena"><br>
 
       <button>Acceder</button>
+  </form>
     </div>
   </div>
 </body>
