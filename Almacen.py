@@ -10,8 +10,7 @@ class AlmacendeBebidas:
         self.ventana.title("Almacenamiento de Bebidas")
 
         self.notebook = ttk.Notebook(self.ventana)
-        self.notebook.pack(fill='both', expand=True)
-
+        
         self.pag1 = ttk.Frame(self.notebook)
         self.notebook.add(self.pag1, text="Alta de Bebidas")
         
@@ -144,6 +143,7 @@ class AlmacendeBebidas:
         clasificacion = self.AenClasificacion.get()
         marca = self.AenMarca.get()
         precio = float(self.AenPrecio.get())
+        
 
 
         for bebida in self.bebidas:
@@ -166,14 +166,20 @@ class AlmacendeBebidas:
 
     
     def Precio_Promedio(self):
-
+        if self.bebidas: 
+            PrecioTotal= sum(bebida['precio']for bebida in self.bebidas)
+            Promedio= PrecioTotal / len(self.bebidas)
+            messagebox.showinfo("Promedio", f"El precio promedio de las bebidas es: {Promedio}")
+            
     def Cantidad_Marca(self):
-
-    def Cantidad_Clasificacion(self):
-
+        marca= self.CenMarca.get()
+        cantidad= sum(1 for bebida in self.bebidas if bebida ['marca']== marca)
+        messagebox.showinfo("Cantidad por marca", f"La cantidad de la marca es {marca} {cantidad}")
         
 
-
-
+    def Cantidad_Clasificacion(self):
+        clasificacion= self.CenClasif.get() 
+        cantidad= sum(1 for bebida in self.bebidas if bebida['clasificacion']== clasificacion)
+        messagebox.showinfo("Cantidad por clasificacion", f"La cantidad por clasificacion {clasificacion} es: {cantidad}")
             
 ventana = AlmacendeBebidas()
