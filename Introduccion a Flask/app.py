@@ -1,13 +1,14 @@
 #importacion de la paqueteria del framework
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 
 #inicializacion de la aplicacion: Señalar que va a trabajar con flask 
 app = Flask(__name__)
 app.config['MYSQL_HOST']= 'localhost'
 app.config['MYSQL_USER']= 'root'
-app.config['MYSQL_PASSWORD']= '11082003'
+app.config['MYSQL_PASSWORD']= ''
 app.config['MYSQL_DB']= 'dbFlask'
+app.secret_key = 'mysecretkey'
 mysql = MySQL(app)
 
 
@@ -20,12 +21,20 @@ def index():
 @app.route('/guardar', methods={'POST'}) #methods=la informacion sera enviada por formulario y llega por POST 
 def guardar(): 
     if request.method == 'POST': 
-        titulo= request.form['txtTitulo']
-        artista= request.form['txtArtista']
-        anio= request.form['txtAnio']
-        print(titulo, artista, anio)
-    return 'Los datos llegaron ;)'
-
+        
+        #Aquí pasamos a vaviables el contenido de los input
+        Vtitulo= request.form['txtTitulo']
+        Vartista= request.form['txtArtista']
+        Vanio= request.form['txtAnio']
+        
+        #Conectarnos a la base de datos y ejecutar el insert
+        CS = mysql.connection.cursor()
+        CS.execute('insert into TB_Albums(titulo, artista, anio) VALUES(%s,%s,%s)',(Vtitulo, Vartista, Vanio))
+        mysql.connection.commit()
+        
+    flash('El album fue agregado correctamente')
+    return redirect(url_for('index'))
+    
 @app.route('/eliminar') 
 def eliminar(): 
     return "Se elimino en la BD"
