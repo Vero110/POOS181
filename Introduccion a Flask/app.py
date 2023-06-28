@@ -15,7 +15,13 @@ MySQL = MySQL(app)
 #declaracion de la inicializacion de la ruta http://127.0.0.1:5000
 @app.route('/') #ruta principal
 def index(): 
-    return render_template('index.html')
+    CC = MySQL.connection.cursor()
+    CC.execute('select * from TB_Albums')
+    conAlbums=CC.fetchall()
+    print(conAlbums)
+    
+    return render_template('index.html', listalbums=conAlbums)
+
 
 #ruta http://127.0.0.1:5000/guardar tipo POST para insert 
 @app.route('/guardar', methods=['POST']) #methods=la informacion sera enviada por formulario y llega por POST 
