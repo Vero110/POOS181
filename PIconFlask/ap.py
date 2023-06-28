@@ -5,49 +5,53 @@ app = Flask(__name__)
 # declaración de la ruta principal
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('BienvenidaAdmin.html')
 
-@app.route('/RegistrarP', methods=['POST'])
+@app.route('/InicioSesion.html')
+def login(): 
+    return render_template('InicioSesion.html')
+
+@app.route('/RegistrarP.html')
 def registro(): 
     return render_template('RegistrarP.html')
     
-@app.route('/GuardarP', methods=['POST'])
+@app.route('/GuardarP.html')
 def guardar(): 
     return render_template('GuardarP.html')
 
-@app.route('/EliminarP', methods=['POST'])
+@app.route('/EliminarP.html')
 def eliminar():
     return render_template('EliminarP.html')
 
-@app.route('/ActualizarP', methods=['POST'])
+@app.route('/ActualizarP.html')
 def actualizar():
     return render_template('ActualizarP.html')
 
-@app.route('/BuscarP', methods=['POST'])
+@app.route('/BuscarP.html')
 def buscar():
     return render_template('BuscarP.html')
 
-@app.route('CompraP', methods=['POST'])
+@app.route('/CompraP.html')
 def compra(): 
     return render_template('CompraP.html')
 
-@app.route('BuscarU', methods=['POST'])
+@app.route('/BuscarU.html')
 def buscarU():
     return render_template('BuscarU.html')
 
-@app.route('ConsultarU', methods=['POST'])
+@app.route('/ConsultarU.html')
 def consultarU():
     return render_template('ConsultarU.html')
 
-@app.route('ActualizarU', methods=['POST'])
+@app.route('/ActualizarU.html')
 def actualizarU():
     return render_template('ActualizarU.html')
 
-@app.route('EliminarU', methods=['POST'])
+@app.route('/EliminarU.html')
 def eliminarU():
     return render_template('EliminarU.html')
 
-@app.route('RegistrarU', methods=['POST'])
+@app.route('/RegistrarU.html')
 def registrarU():
     return render_template('RegistrarU.html')
 
