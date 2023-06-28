@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guardar Producto</title>
+  <style>
+    body {
+      background-color: lightcyan;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 { 
+      color: black;
+    }
+    form {
+          background-color: lavender;
+          padding: 10px;
+          width: 450px;
+          border-radius: 10px;
+          margin-top: 10px;
+
+    }
+    .column-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    label {
+          display: block;
+          margin-bottom: 10px;
+          color: currentColor;
+         }
+    
+
+  </style>
+</head>
+<body>
+  <form>
+    <h1>Guardar Producto</h1>
+    <br>
+        <label for="ID">ID:</label>
+        <input type="text" id="ID" name="ID"><br>
+        <label for="Nombre">Nombre:</label>
+        <input type="text" id="Nombre" name="Nombre"><br>
+        <label for="Descripcion">Descripcion:</label>
+        <input type="text" id="Descripcion" name="Descripcion"><br>
+        <label for="Precio">Precio:</label>
+        <input type="int" id="Precio" name="Precio"><br>
+        <label for="Marca">Marca:</label>
+        <input type="int" id="Marca" name="Marca"><br>
+        <button type="submit">Guardar Producto</button>
+    </form>
+</body>
+</html>
