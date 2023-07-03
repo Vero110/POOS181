@@ -1,11 +1,35 @@
 from flask import Flask, render_template
+from flask_mysqldb import MySQL
+
 
 app = Flask(__name__)
+app.config['MYSQL_HOST']= 'localhost'
+app.config['MYSQL_USER']= 'root'
+app.config['MYSQL_PASSWORD']= ''
+app.config['MYSQL_DB']= 'proyectointegrador'
+app.secret_key = 'mysecretkey'
+MySQL = MySQL(app)
 
 # declaración de la ruta principal
 @app.route('/')
 def index():
+    return render_template('Ingreso.html')
+
+@app.route('/BienvenidaAdmin.html')
+def admin():
     return render_template('BienvenidaAdmin.html')
+
+@app.route('/BienvenidaUsuario.html')
+def usuario():
+    return render_template('BienvenidaUsuario.html')
+
+@app.route('/CRUDU.html')
+def crudusuarios():
+    return render_template('CRUDU.html')
+
+@app.route('/CRUD.html')
+def crudadmin():
+    return render_template('CRUD.html')
 
 @app.route('/InicioSesion.html')
 def login(): 
@@ -34,6 +58,10 @@ def buscar():
 @app.route('/CompraP.html')
 def compra(): 
     return render_template('CompraP.html')
+
+@app.route('/ConsultaP.html')
+def consultaprod():
+    return render_template('ConsultaP.html')
 
 @app.route('/BuscarU.html')
 def buscarU():

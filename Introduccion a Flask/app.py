@@ -22,7 +22,7 @@ def index():
     
     return render_template('index.html', listalbums=conAlbums)
 
-
+ 
 #ruta http://127.0.0.1:5000/guardar tipo POST para insert 
 @app.route('/guardar', methods=['POST']) #methods=la informacion sera enviada por formulario y llega por POST 
 def guardar(): 
@@ -41,10 +41,23 @@ def guardar():
     flash('El album fue agregado correctamente')
     return redirect(url_for('index'))
     
-    
 @app.route('/eliminar') 
 def eliminar(): 
     return "Se elimino en la BD"
+
+@app.route('/editar/<id>') 
+def editar(id): 
+    cursorID = MySQL.connection.cursor()
+    cursorID.execute('select * from TB_Albums where id = %s',(id,))
+    consultaID= cursorID.fetchone()
+    
+    return render_template('editarAlbum.html', album=consultaID)
+
+@app.route('/actualizar/<id>', methods=['POST']) 
+def actualizar(id): 
+    
+
+
 
 #ejecucion del servidor en el puerto 5000
 if __name__ == '__main__': 

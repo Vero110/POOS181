@@ -18,6 +18,7 @@
             {% endfor %} 
         {% endif %}
     {% endwith %}
+
  
     <form action="/guardar" method="post">
         <input type="text" name="txtTitulo" placeholder="Escribe Titulo">
@@ -48,7 +49,7 @@
                 <td> {{alb.2}} </td>
                 <td> {{alb.3}} </td>
                 <td>
-                    <a href="">Editar</a>
+                    <a href=/editar/{{alb.0}} > Editar </a>
                     <a href="">Borrar</a>
 
                 </td>
