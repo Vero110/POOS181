@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 
+
 #inicializacion de la aplicacion: Señalar que va a trabajar con flask 
 app = Flask(__name__)
 app.config['MYSQL_HOST']= 'localhost'
@@ -18,7 +19,7 @@ def index():
     CC = MySQL.connection.cursor()
     CC.execute('select * from TB_Albums')
     conAlbums=CC.fetchall()
-    print(conAlbums)
+    #print(conAlbums)
     
     return render_template('index.html', listalbums=conAlbums)
 
@@ -41,10 +42,6 @@ def guardar():
     flash('El album fue agregado correctamente')
     return redirect(url_for('index'))
     
-@app.route('/eliminar') 
-def eliminar(): 
-    return "Se elimino en la BD"
-
 @app.route('/editar/<id>') 
 def editar(id): 
     cursorID = MySQL.connection.cursor()
@@ -67,6 +64,15 @@ def actualizar(id):
     flash('Se actualizaron los datos del Album' + varTitulo)
     return redirect(url_for('index'))
 
+
+@app.route('/eliminar/<id>')
+def eliminar(id):
+    cursorDel = MySQL.connection.cursor()
+    cursorDel.execute('delete from TB_Albums where id = %s', (id))
+    MySQL.connection.commit()
+    
+    flash('El álbum fue eliminado correctamente')
+    return redirect(url_for('index'))
 
 
 #ejecucion del servidor en el puerto 5000
