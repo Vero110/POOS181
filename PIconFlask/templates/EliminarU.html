@@ -13,45 +13,45 @@
       justify-content: center;
     }
 
-    h1 { 
+    h1 {
       color: black;
     }
-    form {
-          background-color: lavender;
-          padding: 10px;
-          width: 450px;
-          border-radius: 10px;
-          margin-top: 10px;
 
+    form {
+      background-color: lavender;
+      padding: 10px;
+      width: 450px;
+      border-radius: 10px;
+      margin-top: 10px;
     }
+
     .column-container {
       display: flex;
       flex-direction: row;
       justify-content: center;
       margin-top: 20px;
     }
-    label {
-          display: block;
-          margin-bottom: 10px;
-          color: currentColor;
-         }
-    
 
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: currentColor;
+    }
   </style>
 </head>
 <body>
   <div>
-  <form>
-  <h1>Eliminar Usuario</h1>
+    <form action="/eliminar_usuario" method="post">
+      <h1>Eliminar Usuario</h1>
 
-    <div class="column-title">Ingrese el ID:</div>
+      <div class="column-title">Ingrese el ID:</div>
 
-    <label for="ID">ID:</label>
-    <input type="int" id="ID" name="ID"><br>
+      <label for="ID">ID:</label>
+      <input type="text" id="ID" name="ID"><br>
 
-    <button>Eliminar</button>
+      <button type="submit">Eliminar</button>
 
-  </form>
+    </form>
   </div>
 </body>
 </html>

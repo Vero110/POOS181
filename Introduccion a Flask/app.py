@@ -64,14 +64,24 @@ def actualizar(id):
     flash('Se actualizaron los datos del Album' + varTitulo)
     return redirect(url_for('index'))
 
-
 @app.route('/eliminar/<id>')
 def eliminar(id):
-    cursorDel = MySQL.connection.cursor()
-    cursorDel.execute('delete from TB_Albums where id = %s', (id))
+    cur = MySQL.connection.cursor()
+    cur.execute('delete FROM TB_Albums WHERE id = %s', (id,))
+    album = cur.fetchone()
+    cur.close()
+
+    return render_template('eliminarAlbum.html', albumu=album, album_id=id)
+
+
+# Ruta para confirmar y eliminar un álbum
+@app.route('/eliminar_confirmar/<id>', methods=['POST'])
+def eliminar_confirmar(id):
+    cur = MySQL.connection.cursor()
+    cur.execute('DELETE FROM TB_Albums WHERE id = %s', (id,))
     MySQL.connection.commit()
-    
-    flash('El álbum fue eliminado correctamente')
+
+    flash('Se ha eliminado el álbum')
     return redirect(url_for('index'))
 
 
