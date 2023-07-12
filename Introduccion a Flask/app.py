@@ -73,7 +73,6 @@ def eliminar(id):
 
     return render_template('eliminarAlbum.html', albumu=album, album_id=id)
 
-
 # Ruta para confirmar y eliminar un álbum
 @app.route('/eliminar_confirmar/<id>', methods=['POST'])
 def eliminar_confirmar(id):

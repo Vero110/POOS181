@@ -1,0 +1,60 @@
+<!-- archivo: actualizarUsuario.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Actualizar usuario</title>
+  <style>
+    body {
+      background-color: lightcyan;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      color: black;
+    }
+
+    form {
+      background-color: lavender;
+      padding: 10px;
+      width: 450px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: currentColor;
+    }
+  </style>
+</head>
+<body>
+  <div class="containerM">
+    <h1>actualizar usuario</h1>
+    <form action="/actualizaru/{{ actu.0 }}" method="POST">
+      <ul>
+        <label for="Nombre">Nombre:</label>
+        <input type="text" name="Nombre" value="{{ actu.1 }}" required/>
+        <p></p>
+        <label for="Correo">Correo:</label>
+        <input type="text" name="Correo" value="{{ actu.2 }}" required/>
+        <p></p>
+        <label for="Direccion">Direccion:</label>
+        <input type="text" name="Direccion" value="{{ actu.3 }}" required/>
+        <p></p>
+        <label for="Telefono">Telefono:</label>
+        <input type="text" name="Telefono" value="{{ actu.4 }}" required/>
+        <p></p>
+        <button type="submit">actualizar</button>
+        <a class="button1">cancelar</a>
+      </ul>
+    </form>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Fruteria</title>
+    <a href="editar">Editar registros</a>
+    <a href="borrar" class="button2">Borrar registros</a>
+    <a href="index" class="button2">Consultar registros</a>
+    <a href="buscar" class="button2">Buscar registro</a>
+</head>
+<body>
+    {%with mensajes=get_flashed_messages()%}
+        {%if mensajes%}
+            {%for msj in mensajes%}
+                <h3>{{msj}}</h3>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+    <br>
+    <br>
+    <center> <h1>Fruteria La Toronjita</h1> </center>
+    <br>
+    <form action="/guardar" method="POST">
+        <input type="text" name="txtFruta" placeholder="Escribe fruta">
+        <input type="text" name="txtTemporada" placeholder="Escribe temporada">
+        <input type="step" name="txtPrecio" placeholder="Escribe precio">
+        <input type="number" name="txtStock" placeholder="Escribe stock">
+        <button type="submit">Guardar</button>
+    </form> 
+</body>
+</html>

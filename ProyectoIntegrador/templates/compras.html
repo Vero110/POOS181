@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Comprar Producto</title>
+  <style>
+    body {
+      background-color: lightcyan;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      color: black;
+      font-family: sans-serif;
+    }
+
+    form {
+      background-color: lavender;
+      padding: 10px;
+      width: 450px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: currentColor;
+    }
+  </style>
+</head>
+<body>
+  <div class="containerM">
+
+    <form action="/comprap" method="POST">
+
+    <h1>Comprar Producto</h1>
+      <ul>
+        <label for="Nombre">Nombre:</label>
+        <input type="text" name="Nombre" required/>
+        <p></p>
+        <label for="Cantidad">Cantidad:</label>
+        <input type="number" name="Cantidad" required/>
+        <p></p>
+
+        <button type="submit">comprar producto</button>
+        <button type="button" onclick="window.history.back()">cancelar</button>
+        <p></p>
+      </ul>
+    </form>
+  </div>
+  <p></p>
+  {% with mensajes = get_flashed_messages() %}
+  {% if mensajes %}
+      {% for msj in mensajes %}
+          <h3>{{ msj }}</h3>
+      {% endfor %}
+  {% endif %}
+  {% endwith %}
+</body>
+</html>

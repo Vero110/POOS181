@@ -12,15 +12,7 @@ mysql = MySQL(app)
 # declaración de la ruta principal
 @app.route('/')
 def index():
-    return render_template('Ingreso.html')
-
-@app.route('/BienvenidaAdmin.html')
-def admin():
-    return render_template('BienvenidaAdmin.html')
-
-@app.route('/BienvenidaUsuario.html')
-def usuario():
-    return render_template('BienvenidaUsuario.html')
+    return render_template('ingreso.html')
 
 @app.route('/CRUDU.html')
 def crudusuarios():
@@ -29,10 +21,6 @@ def crudusuarios():
 @app.route('/CRUD.html')
 def crudadmin():
     return render_template('CRUD.html')
-
-@app.route('/InicioSesion.html')
-def login(): 
-    return render_template('InicioSesion.html')
 
 @app.route('/guardar', methods=['POST'])
 def guardarP():
@@ -46,7 +34,7 @@ def guardarP():
         cursor.execute('INSERT INTO guardarproducto (nombre, descripcion, precio, marca) VALUES (%s, %s, %s, %s)', (v_nombre, v_descripcion, v_precio, v_marca))
         mysql.connection.commit()
         
-        flash('El producto fue guardado correctamente')
+    flash('El producto fue guardado correctamente')
     return redirect(url_for('index'))
 
 @app.route('/eliminar_producto', methods=['POST'])
@@ -74,7 +62,7 @@ def actualizar_producto():
         cursor.execute('UPDATE guardarproducto SET nombre=%s, descripcion=%s, precio=%s, marca=%s WHERE id=%s', (v_nombre, v_descripcion, v_precio, v_marca, v_id))
         mysql.connection.commit()
         
-        flash('El producto fue actualizado correctamente')
+    flash('El producto fue actualizado correctamente')
     return render_template('ActualizarP.html')
 
 @app.route('/BuscarP.html')
@@ -101,7 +89,7 @@ def guardar_usuario():
         cursor.execute('INSERT INTO guardarusuario (nombre, correo, direccion, telefono) VALUES (%s, %s, %s, %s)', (v_nombre, v_correo, v_direccion, v_telefono))
         mysql.connection.commit()
         
-        flash('El usuario fue guardado correctamente')
+    flash('El usuario fue guardado correctamente')
     return render_template('RegistrarU.html')
 
 @app.route('/BuscarU.html')
@@ -125,7 +113,7 @@ def actualizar_usuario():
         cursor.execute('UPDATE guardarusuario SET nombre=%s, correo=%s, direccion=%s, telefono=%s WHERE id=%s', (v_nombre, v_correo, v_direccion, v_telefono, v_id))
         mysql.connection.commit()
 
-        flash('El usuario fue actualizado correctamente')
+    flash('El usuario fue actualizado correctamente')
     return render_template('ActualizarU.html')
 
 @app.route('/eliminar_usuario', methods=['POST'])
@@ -138,7 +126,7 @@ def eliminar_usuario():
         mysql.connection.commit()
 
         
-        flash('El usuario fue eliminado correctamente')
+    flash('El usuario fue eliminado correctamente')
     return render_template('EliminarU.html')
 
 
