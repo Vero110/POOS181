@@ -12,7 +12,11 @@ mysql = MySQL(app)
 
 @app.route('/') 
 def index(): 
-    return render_template('index.html')
+    CC = mysql.connection.cursor()
+    CC.execute('select * from tbfloreria')
+    conflor=CC.fetchall()
+    #print(conflor)
+    return render_template('index.html', listalbums=conflor)
 
 @app.route('/guardar', methods={'POST'}) 
 def guardar(): 
@@ -27,6 +31,28 @@ def guardar():
         
     flash('La flor se ha registrado')
     return redirect(url_for('index'))
-    
+
+@app.route('/eliminarpro')
+def eliminarpro():
+    return render_template('eliminarF.html')
+
+@app.route('/eliminarp/', methods=['GET', 'POST'])
+def eliminarp():
+    Vid = request.form['txtID']
+    cursor = mysql.connection.cursor()
+    cursor.execute('DELETE FROM tbfloreria WHERE id=%s', Vid)
+    mysql.connection.commit()
+
+    flash('flor eliminada correctamente')
+    return redirect(url_for('index'))
+
+@app.route('/borrarp/<id>')
+def borrarp(id):
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT * FROM tbloreria WHERE id_producto=%s', (id,))
+    consultaID = cursor.fetchone()
+    return render_template('eliminarF.html', elip=consultaID)
+
 if __name__ == '__main__': 
     app.run(port=5005, debug=True)
+    

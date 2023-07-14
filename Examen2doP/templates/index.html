@@ -30,3 +30,40 @@
     </form>
 </body>
 </html>
+
+</form>
+    
+<br>
+
+<h1> Flores guardadas</h1>
+<br>
+    <table>
+        <thead>
+            <tr>
+                <td>id: </td>
+                <td>nombre: </td>
+                <td>cantidad : </td>
+                <td>precio: </td>
+            </tr>
+        </thead>
+        <tbody>
+            {%for alb in listalbums%}
+            <tr>
+                <td> {{alb.0}} </td>
+                <td> {{alb.1}} </td>
+                <td> {{alb.2}} </td>
+                <td> {{alb.3}} </td>
+                <td>
+                    <a href="eliminarpro" class="button2">eliminar</a>
+
+                </td>
+
+            </tr>
+            {%endfor%}
+
+        </tbody>
+
+    </table>
+
+</body>
+</html>
