@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLORERIA</title>
+</head>
+<body>
+    <h1>Floreria</h1>
+    <br>
+    <br>
+
+    {% with mensajes = get_flashed_messages() %}
+        {% if mensajes %}
+            {% for msj in mensajes %} 
+                <h3> {{msj}} </h3>
+            {% endfor %} 
+        {% endif %}
+    {% endwith %}
+
+    <form action="/guardar" method="post">
+        <input type="text" name="txtNombre" placeholder="Escribe Nombre">
+        <input type="text" name="txtCantidad" placeholder="Escribe Cantidad">
+        <input type="number"  name="txtPrecio" placeholder="Escribe Precio">
+        <button type="submit">Guardar</button>
+
+
+    </form>
+</body>
+</html>
