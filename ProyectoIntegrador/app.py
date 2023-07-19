@@ -29,14 +29,6 @@ def eliminarpro():
 def eliminarusu():
     return render_template('eliminarUsuario.html')
 
-@app.route('/actualizarusu')
-def actualizarusu():
-    return render_template('actualizarUsuario.html')
-
-@app.route('/actualizarpro')
-def actualizarpro():
-    return render_template('actualizarProducto.html')
-
 @app.route('/compras')
 def compras():
     return render_template('compras.html')
@@ -46,8 +38,7 @@ def comprap():
     if request.method == 'POST':
         v_nombre = request.form['Nombre']
         v_cantidad = request.form['Cantidad']
-
-
+        
         if v_nombre and v_cantidad:
             cursor = mysql.connection.cursor()
             cursor.execute('INSERT INTO compras (nombre, cantidad) VALUES (%s, %s)', (v_nombre, v_cantidad))
@@ -57,9 +48,8 @@ def comprap():
         else:
             flash('Por favor, completa todos los campos')
 
-    return render_template('GuardarU.html')
+    return render_template('GuardarUsuario.html')
     
-
 @app.route('/guardaru', methods=['GET', 'POST'])
 def guardaru():
     if request.method == 'POST':
@@ -77,8 +67,7 @@ def guardaru():
         else:
             flash('Por favor, completa todos los campos')
 
-    return render_template('GuardarU.html')
-    
+    return render_template('GuardarUsuario.html')
 
 @app.route('/guardarp', methods=['GET', 'POST'])
 def guardarp():
@@ -98,7 +87,41 @@ def guardarp():
         else:
             flash('Por favor, completa todos los campos')
 
-    return render_template('GuardarP.html')
+    return render_template('GuardarProducto.html')
+  
+@app.route('/eliminaru/', methods=['GET', 'POST'])
+def eliminaru():
+    Vide = request.form['txtUID']
+    cursor = mysql.connection.cursor()
+    cursor.execute('DELETE FROM guardarusuario WHERE id=%s', Vide)
+    mysql.connection.commit()
+
+    flash('Usuario eliminado correctamente')
+    return redirect(url_for('index'))
+
+@app.route('/borraru/<id>')
+def borraru(id):
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT * FROM guardarusuario WHERE id_usuario=%s', (id,))
+    consultaID = cursor.fetchone()
+    return render_template('eliminarUsuario.html', eliu=consultaID)
+
+@app.route('/eliminarp/', methods=['GET', 'POST'])
+def eliminarp():
+    Vid = request.form['txtID']
+    cursor = mysql.connection.cursor()
+    cursor.execute('DELETE FROM guardarproducto WHERE id=%s', Vid)
+    mysql.connection.commit()
+
+    flash('Producto eliminado correctamente')
+    return redirect(url_for('index'))
+
+@app.route('/borrarp/<id>')
+def borrarp(id):
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT * FROM guardarproducto WHERE id_producto=%s', (id,))
+    consultaID = cursor.fetchone()
+    return render_template('eliminarProducto.html', elip=consultaID)
 
 @app.route('/actualizaru/<id>', methods=['GET', 'POST'])
 def actualizaru(id):
@@ -155,7 +178,7 @@ def editaru(id):
     cursor.execute('SELECT * FROM guardarusuario WHERE id_usuario=%s', (id,))
     consultaID = cursor.fetchone()
 
-    return render_template('actualizarUsuario.html', actu=consultaID)
+    return render_template('editarUsuario.html', actu=consultaID)
 
 @app.route('/editarp/<id>')
 def editarp(id):
@@ -164,41 +187,6 @@ def editarp(id):
     consultaID = cursor.fetchone()
 
     return render_template('actualizarProducto.html', actp=consultaID)
-
-@app.route('/eliminaru/', methods=['GET', 'POST'])
-def eliminaru():
-    Vide = request.form['txtUID']
-    cursor = mysql.connection.cursor()
-    cursor.execute('DELETE FROM guardarusuario WHERE id=%s', Vide)
-    mysql.connection.commit()
-
-    flash('Usuario eliminado correctamente')
-    return redirect(url_for('index'))
-
-@app.route('/borraru/<id>')
-def borraru(id):
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT * FROM guardarusuario WHERE id_usuario=%s', (id,))
-    consultaID = cursor.fetchone()
-    return render_template('eliminarUsuario.html', eliu=consultaID)
-
-@app.route('/eliminarp/', methods=['GET', 'POST'])
-def eliminarp():
-    Vid = request.form['txtID']
-    cursor = mysql.connection.cursor()
-    cursor.execute('DELETE FROM guardarproducto WHERE id=%s', Vid)
-    mysql.connection.commit()
-
-    flash('Producto eliminado correctamente')
-    return redirect(url_for('index'))
-
-@app.route('/borrarp/<id>')
-def borrarp(id):
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT * FROM guardarproducto WHERE id_producto=%s', (id,))
-    consultaID = cursor.fetchone()
-    return render_template('eliminarProducto.html', elip=consultaID)
-
 
 if __name__ == '__main__':
     app.run(port=5003, debug=True)

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Usuario</title>
+    <style>
+        body {
+            background-color: lightcyan;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        form {
+            background-color: lavender;
+            padding: 10px;
+            width: 450px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <br>
+    <form action="/ingresar" method="post">
+
+    <h1>Registro de usuarios</h1>
+    <br>
+
+    {% with mensajes = get_flashed_messages() %}
+        {% if  mensajes %}
+            {% for msj in mensajes %}
+                <h3> {{ msj }}</h3>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <br>
+        <input type="text" name="txtNombre" placeholder="Nombre">
+        <input type="text" name="txtCorreo" placeholder="Correo">
+        <input type="text" name="txtDireccion" placeholder="Direccion">
+        <input type="number" name="txtTelefono" placeholder="Telefono">
+        <button type="submit">Guardar</button>
+    </form>
+    <br>
+    <br>
+    <a href="/editar"><button>Editar Usuario</button></a>
+</body>
+</html>

@@ -1,89 +1,82 @@
-from flask import Flask, render_template, request, redirect,url_for,flash 
+from flask import Flask, render_template, request, redirect, url_for, flash 
 from flask_mysqldb import MySQL
 
-app=Flask(__name__) 
-
-app.config['MYSQL_HOST']="localhost" 
-app.config['MYSQL_USER']="root" 
-app.config['MYSQL_PASSWORD']="" 
-app.config['MYSQL_DB']="db_fruteria" 
-app.secret_key='mysecretkey' 
+app = Flask(__name__) 
+app.config['MYSQL_HOST']='localhost'
+app.config['MYSQL_USER']='root'
+app.config['MYSQL_PASSWORD']=''
+app.config['MYSQL_DB']='proyectointegrador'
+app.secret_key='mysecretkey'
 mysql=MySQL(app)
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/guardar',methods=['POST'])
-def guardar():
+@app.route('/usuarios')
+def usuarios():
+    return render_template('ingresar.html')
+
+@app.route('/productos')
+def productos():
+    return render_template('guardarProducto.html')
+
+
+@app.route('/ingresar', methods=['POST'])
+def ingresar():
     if request.method=='POST':
-        VFruta=request.form['txtFruta']
-        VTemporada=request.form['txtTemporada']
-        Vprecio=request.form['txtPrecio']
-        Vstock=request.form['txtStock']
+        Vfruta=request.form['txtNombre']
+        Vtemporada=request.form['txtCorreo']
+        Vprecio=request.form['txtDireccion']
+        Vstock=request.form['txtTelefono']
 
-        CS=mysql.connection.cursor()
-        CS.execute('insert into tbfrutas(fruta,temporada,precio,stock) values(%s,%s,%s,%s)',(VFruta,VTemporada,Vprecio,Vstock)) 
+        CS = mysql.connection.cursor()
+        CS.execute('insert into guardarusuario(nombre, correo, direccion, telefono) values (%s,%s,%s,%s)', (Vfruta, Vtemporada, Vprecio, Vstock))
         mysql.connection.commit()
+    flash('El usuario se ha guardado correctamente')
+    return redirect(url_for('index'))
 
-        flash('Registro agregado correctamente')
-    return redirect(url_for('index')) 
+@app.route('/editar')
+def editar():
+    cursorEdi = mysql.connection.cursor() 
+    cursorEdi.execute('select * from guardarusuario')
+    conFru = cursorEdi.fetchall( ) 
+    return render_template('consulta.html', listaF = conFru) 
 
-@app.route('/actualizar/<id>',methods=['POST'])
+@app.route('/actualizarVista/<string:id>')
+def actualizarVista(id):
+    cursorUpdV = mysql.connection.cursor()
+    cursorUpdV.execute('select * from guardarusuario where id = %s', (id,))
+    confru = cursorUpdV.fetchone()
+    return render_template('editarUsuario.html', UpdateFruta = confru)
+
+@app.route('/actualizar/<id>', methods=['POST'])
 def actualizar(id):
-    if request.method=='POST': 
-        VFruta=request.form['txtFruta']
-        VTemporada=request.form['txtTemporada']
-        Vprecio=request.form['txtPrecio']
-        Vstock=request.form['txtStock']
-    
-        curUpdate=mysql.connection.cursor()
-        curUpdate.execute('update tbfrutas set fruta=%s, temporada=%s, precio=%s, stock=%s where id=%s', (VFruta,VTemporada,Vprecio,Vstock,id))
+    if request.method == 'POST':
+        varFruta = request.form['txtNombre']
+        varTemporada = request.form['txtCorreo']
+        varPrecio = request.form['txtDireccion']
+        varStock = request.form['txtTelefono']
+        cursorUpd = mysql.connection.cursor()
+        cursorUpd.execute('update guardarusuario set nombre = %s, correo = %s, direccion = %s, telefono = %s where id = %s', (varFruta, varTemporada, varPrecio, varStock, id))
         mysql.connection.commit()
+    flash ('El usuario '+varFruta+' se actualizo correctamente.')
+    return redirect(url_for('editar'))
 
-    flash('Registro actualizado correctamente')
-    return redirect(url_for('index')) 
-
-@app.route('/editar/<id>')
-def editar(id):
-    curEditar=mysql.connection.cursor()
-    curEditar.execute('select * from tbfrutas where id= %s', (id,))
-    consultaID=curEditar.fetchone()
-
-    return render_template('editarFruteria.html', fruteria=consultaID)
-
-@app.route('/eliminar/<id>',methods=['POST'])
+@app.route('/confirmacion/<id>')
 def eliminar(id):
-    curDelete=mysql.connection.cursor()
-    curDelete.execute('delete from tbfrutas where id=%s', (id)) 
+    cursorConfi = mysql.connection.cursor()
+    cursorConfi.execute('select * from guardarusuario where id = %s', (id,))
+    consuF = cursorConfi.fetchone()
+    return render_template('eliminarUsuario.html', fruta=consuF)
+
+@app.route("/eliminar/<id>", methods=['POST'])
+def eliminarBD(id):
+    cursorDlt = mysql.connection.cursor()
+    cursorDlt.execute('delete from guardarusuario where id = %s', (id,))
     mysql.connection.commit()
-
-    flash('Registro eliminado correctamente')
-    return redirect(url_for('index')) 
-
-@app.route('/borrar-fruta/<id>')
-def borrar_fruta(id):
-    curBorrar=mysql.connection.cursor()
-    curBorrar.execute('select * from tbfrutas where id= %s', (id,))
-    consultaID=curBorrar.fetchone()
-
-    return render_template('eliminarFruteria.html', fruteria=consultaID)
-
-@app.route('/consultar')
-def borrar():
-    curSelect=mysql.connection.cursor()
-    curSelect.execute('select * from tbfrutas')
-    consulta=curSelect.fetchall() 
-    #print(consulta)
-    return render_template('consultarFruteria.html', listaFruteria=consulta)  
-
-@app.route('/buscar/<id>')
-def buscar(id):
-    curSelect=mysql.connection.cursor()
-    curSelect.execute('select * from tbfrutas where id=%s', (id,))
-    consulta=curSelect.fetchone() 
-    #print(consulta)
-    return render_template('buscarFruteria.html', listaFruteria=consulta) 
+    flash('Se elimino el usuario con id '+ id)
+    return redirect(url_for('index'))
 
 #Ejecucion del servidor
 if __name__=='__main__':
