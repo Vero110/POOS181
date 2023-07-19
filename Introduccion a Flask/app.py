@@ -12,7 +12,6 @@ app.config['MYSQL_DB']= 'dbFlask'
 app.secret_key = 'mysecretkey'
 MySQL = MySQL(app)
 
-
 #declaracion de la inicializacion de la ruta http://127.0.0.1:5000
 @app.route('/') #ruta principal
 def index(): 
@@ -73,7 +72,6 @@ def eliminar(id):
 
     return render_template('eliminarAlbum.html', albumu=album, album_id=id)
 
-# Ruta para confirmar y eliminar un álbum
 @app.route('/eliminar_confirmar/<id>', methods=['POST'])
 def eliminar_confirmar(id):
     cur = MySQL.connection.cursor()
