@@ -8,20 +8,43 @@ app.config['MYSQL_PASSWORD']=''
 app.config['MYSQL_DB']='proyectointegrador'
 app.secret_key='mysecretkey'
 mysql=MySQL(app)
-
+#ruta principal
 @app.route('/')
 def index():
     return render_template('index.html')
-
+#rutas de usuario
 @app.route('/usuarios')
 def usuarios():
     return render_template('ingresar.html')
-
+#rutas de productos
 @app.route('/productos')
 def productos():
-    return render_template('guardarProducto.html')
+    return render_template('ingresarp.html')
+#ruta de compra
+@app.route('/compras')
+def compras():
+    return render_template('ingresarc.html')
 
+# COMPRAS 
+@app.route('/comprap', methods=['GET', 'POST'])
+def comprap():
+    if request.method == 'POST':
+        v_nombre = request.form['Nombre']
+        v_cantidad = request.form['Cantidad']
+        
+        if v_nombre and v_cantidad:
+            cursor = mysql.connection.cursor()
+            cursor.execute('INSERT INTO compras (nombre, cantidad) VALUES (%s, %s)', (v_nombre, v_cantidad))
+            mysql.connection.commit()
+            flash('La compra se ha agregado ')
+            return redirect(url_for('index'))
+        else:
+            flash('Por favor, completa todos los campos')
 
+    return render_template('GuardarUsuario.html')
+    
+#ADMINISTRAR USUARIOS 
+#GUARDAR USUARIOS
 @app.route('/ingresar', methods=['POST'])
 def ingresar():
     if request.method=='POST':
@@ -36,6 +59,7 @@ def ingresar():
     flash('El usuario se ha guardado correctamente')
     return redirect(url_for('index'))
 
+#FUNCION PARA LA ACTUALIZACION DE LOS DATOS
 @app.route('/editar')
 def editar():
     cursorEdi = mysql.connection.cursor() 
@@ -63,6 +87,7 @@ def actualizar(id):
     flash ('El usuario '+varFruta+' se actualizo correctamente.')
     return redirect(url_for('editar'))
 
+#FUNCION PARA ELIMINAR Y CONFIRMAR
 @app.route('/confirmacion/<id>')
 def eliminar(id):
     cursorConfi = mysql.connection.cursor()
@@ -76,6 +101,66 @@ def eliminarBD(id):
     cursorDlt.execute('delete from guardarusuario where id = %s', (id,))
     mysql.connection.commit()
     flash('Se elimino el usuario con id '+ id)
+    return redirect(url_for('index'))
+
+#ADMINISTRAR PRODUCTOS 
+#guardar productos
+@app.route('/ingresarp', methods=['POST'])
+def ingresarp():
+    if request.method=='POST':
+        Vfruta=request.form['txtNombre']
+        Vtemporada=request.form['txtDescripcion']
+        Vprecio=request.form['txtPrecio']
+        Vstock=request.form['txtMarca']
+
+        CS = mysql.connection.cursor()
+        CS.execute('insert into guardarproducto(nombre, descripcion, precio, marca) values (%s,%s,%s,%s)', (Vfruta, Vtemporada, Vprecio, Vstock))
+        mysql.connection.commit()
+    flash('El producto se ha guardado correctamente')
+    return redirect(url_for('index'))
+
+#FUNCION PARA LA ACTUALIZACION DE LOS DATOS
+@app.route('/editarp')
+def editarp():
+    cursorEdi = mysql.connection.cursor() 
+    cursorEdi.execute('select * from guardarproducto')
+    conFru = cursorEdi.fetchall( ) 
+    return render_template('consultap.html', listaF = conFru) 
+
+@app.route('/actualizarVistap/<string:id>')
+def actualizarVistap(id):
+    cursorUpdV = mysql.connection.cursor()
+    cursorUpdV.execute('select * from guardarproducto where id = %s', (id,))
+    confru = cursorUpdV.fetchone()
+    return render_template('editarProducto.html', UpdateFruta = confru)
+
+@app.route('/actualizarp/<id>', methods=['POST'])
+def actualizarp(id):
+    if request.method == 'POST':
+        varFruta = request.form['txtNombre']
+        varTemporada = request.form['txtDescripcion']
+        varPrecio = request.form['txtPrecio']
+        varStock = request.form['txtMarca']
+        cursorUpd = mysql.connection.cursor()
+        cursorUpd.execute('update guardarproducto set nombre = %s, descripcion = %s, precio = %s, marca = %s where id = %s', (varFruta, varTemporada, varPrecio, varStock, id))
+        mysql.connection.commit()
+    flash ('El producto '+varFruta+' se actualizo correctamente.')
+    return redirect(url_for('editarp'))
+
+#FUNCION PARA ELIMINAR Y CONFIRMAR
+@app.route('/confirmacionp/<id>')
+def eliminarp(id):
+    cursorConfi = mysql.connection.cursor()
+    cursorConfi.execute('select * from guardarproducto where id = %s', (id,))
+    consuF = cursorConfi.fetchone()
+    return render_template('eliminarProducto.html', fruta=consuF)
+
+@app.route("/eliminarp/<id>", methods=['POST'])
+def eliminarBDp(id):
+    cursorDlt = mysql.connection.cursor()
+    cursorDlt.execute('delete from guardarproducto where id = %s', (id,))
+    mysql.connection.commit()
+    flash('Se elimino el producto con id '+ id)
     return redirect(url_for('index'))
 
 #Ejecucion del servidor

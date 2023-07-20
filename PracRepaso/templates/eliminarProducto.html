@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmación eliminar</title>
-    <title>Eliminar Usuario</title>
+    <title>Eliminar Producto</title>
     <style>
       body {
         background-color: lightcyan;
@@ -15,7 +15,6 @@
         align-items: center;
         justify-content: center;
       }
-  
       .header01 {
         background-color: lavender;
         padding: 10px;
@@ -38,8 +37,8 @@
     <div class="form-main">
         <div class="form-conte">
             <div class="box">
-                <form action="/eliminar/{{fruta.0}}" method="POST">
-                <h3>¿Está seguro que desea eliminar el usuario {{fruta.1}}? </h3>
+                <form action="/eliminarp/{{fruta.0}}" method="POST">
+                <h3>¿Está seguro que desea eliminar el producto {{fruta.1}}? </h3>
                 <button type="submit" class = 'btn'>Confirmar</button>
                 </form>
                 <a href="/" ><button>Cancelar</button></a>

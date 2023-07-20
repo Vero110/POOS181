@@ -23,7 +23,7 @@
         form {
             background-color: lavender;
             padding: 20px;
-            width: 600px;
+            width: 450px;
             border-radius: 10px;
             margin-top: 10px;
         }
@@ -54,16 +54,16 @@
         }
     </style>
     <form>
-        <h1>Usuarios guardados</h1>
+        <h1>Productos guardados</h1>
     <br>
         <table>
             <thead>
                 <tr>
                     <td>ID</td>
                     <td>Nombre</td>
-                    <td>Correo</td>
-                    <td>Direccion</td>
-                    <td>Telefono</td>
+                    <td>Descripcion</td>
+                    <td>Precio</td>
+                    <td>Marca</td>
                 </tr>
             </thead>
             <tbody>
@@ -75,14 +75,12 @@
                     <td> {{ fru.3 }} </td>
                     <td> {{ fru.4 }} </td>
                     <td> 
-                        <a href=/actualizarVista/{{fru.0}}> Editar </a> 
-                        <a href=/confirmacion/{{fru.0}}> Borrar </a> 
+                        <a href=/actualizarVistap/{{fru.0}}> Editar </a> 
+                        <a href=/confirmacionp/{{fru.0}}> Borrar </a> 
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </form>
 </body>
 </html>
-
