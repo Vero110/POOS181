@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: lightcyan;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        form {
+            background-color: lavender;
+            padding: 20px;
+            width: 450px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 0 10px lavender(0, 0, 0, 0.1);
+        }
+
+        .column-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <form>
+        <h1>Bienvenido</h1>
+
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                {% for msj in mensajes %} 
+                    <h3>{{msj}}</h3>
+                {% endfor %} 
+            {% endif %}
+        {% endwith %}
+
+        <div class="column-title">Admin</div>
+
+        <a href="usuarios" class="button">Usuarios</a>
+        <a href="productos" class="button">Productos</a>
+
+        <div class="column-title">Usuarios</div>
+
+        <a href="compras" class="button">Compra productos</a>
+
+    </form>
+
+</body>
+</html>

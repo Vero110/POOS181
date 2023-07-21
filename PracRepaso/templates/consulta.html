@@ -77,11 +77,14 @@
                     <td> 
                         <a href=/actualizarVista/{{fru.0}}> Editar </a> 
                         <a href=/confirmacion/{{fru.0}}> Borrar </a> 
+
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <button type="button" onclick="window.history.back()">cancelar</button>
+
     </form>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar usuario</title>
+    <title>Consultar</title>
     <style>
         body {
             background-color: lightcyan;
@@ -21,59 +21,67 @@
 
         form {
             background-color: lavender;
-            padding: 20px;
+            padding: 10px;
             width: 450px;
             border-radius: 10px;
             margin-top: 10px;
         }
 
-        label {
+        input[type="text"],
+        input[type="number"] {
             display: block;
             margin-bottom: 10px;
-            color: currentColor;
-        }
-
-        input[type="text"] {
-            display: block;
-            margin-bottom: 15px;
             width: 100%;
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        button[type="submit"] {
+        button {
             padding: 10px 20px;
             background-color: dodgerblue;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 15px;
+        }
+
+        a {
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <form action="/actualizarp/{{UpdateFruta.0}}" method="post">
+    <br><br>
+    <form action="/buscarp">
+        <input type="text" name="txtFrutas" placeholder="Ingrese el nombre del producto" required>
+        <button type="submit">Buscar</button>
+        <button type="button" onclick="window.history.back()">regresar</button>
 
-    <h1> Usuario a editar </h1>
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Descripcion</td>
+                <td>Precio</td>
+                <td>Marca</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% if listaF %} 
+            <tr>
+                <td> {{ listaF.0 }} </td>
+                <td> {{ listaF.1 }} </td>
+                <td> {{ listaF.2 }} </td>
+                <td> {{ listaF.3 }} </td>
+                <td> {{ listaF.4 }} </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</form>
 
-        <label for="txtNombre">Nombre:</label>
-        <input type="text" name="txtNombre" value="{{UpdateFruta.1}}">
-
-        <label for="txtDescripcion">Descripcion:</label>
-        <input type="text" name="txtDescripcion" value="{{UpdateFruta.2}}">
-
-        <label for="txtPrecio">Precio:</label>
-        <input type="text" name="txtPrecio" value="{{UpdateFruta.3}}">
-
-        <label for="txtMarca">Marca:</label>
-        <input type="text" name="txtMarca" value="{{UpdateFruta.4}}">
-
-        <button type="submit">Actualizar</button>
-        <br>
-        <button type="button" onclick="window.history.back()">cancelar</button>
-
-    </form>
 </body>
 </html>

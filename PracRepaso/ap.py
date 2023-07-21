@@ -8,10 +8,11 @@ app.config['MYSQL_PASSWORD']=''
 app.config['MYSQL_DB']='proyectointegrador'
 app.secret_key='mysecretkey'
 mysql=MySQL(app)
+
 #ruta principal
 @app.route('/')
-def index():
-    return render_template('index.html')
+def indexp():
+    return render_template('indexp.html')
 
 #rutas de usuario
 @app.route('/usuarios')
@@ -40,7 +41,7 @@ def comprap():
             cursor.execute('INSERT INTO compras (nombre, cantidad) VALUES (%s, %s)', (v_nombre, v_cantidad))
             mysql.connection.commit()
             flash('La compra se ha agregado ')
-            return redirect(url_for('index'))
+            return redirect(url_for('indexp'))
         else:
             flash('Por favor, completa todos los campos')
 
@@ -60,7 +61,7 @@ def ingresar():
         CS.execute('insert into guardarusuario(nombre, correo, direccion, telefono) values (%s,%s,%s,%s)', (Vfruta, Vtemporada, Vprecio, Vstock))
         mysql.connection.commit()
     flash('El usuario se ha guardado correctamente')
-    return redirect(url_for('index'))
+    return redirect(url_for('indexp'))
 
 #FUNCION PARA LA ACTUALIZACION DE LOS DATOS
 @app.route('/editar')
@@ -104,7 +105,7 @@ def eliminarBD(id):
     cursorDlt.execute('delete from guardarusuario where id = %s', (id,))
     mysql.connection.commit()
     flash('Se elimino el usuario con id '+ id)
-    return redirect(url_for('index'))
+    return redirect(url_for('indexp'))
 
 #ADMINISTRAR PRODUCTOS 
 #guardar productos
@@ -120,7 +121,7 @@ def ingresarp():
         CS.execute('insert into guardarproducto(nombre, descripcion, precio, marca) values (%s,%s,%s,%s)', (Vfruta, Vtemporada, Vprecio, Vstock))
         mysql.connection.commit()
     flash('El producto se ha guardado correctamente')
-    return redirect(url_for('index'))
+    return redirect(url_for('indexp'))
 
 #FUNCION PARA LA ACTUALIZACION DE LOS DATOS
 @app.route('/editarp')
@@ -164,9 +165,9 @@ def eliminarBDp(id):
     cursorDlt.execute('delete from guardarproducto where id = %s', (id,))
     mysql.connection.commit()
     flash('Se elimino el producto con id '+ id)
-    return redirect(url_for('index'))
+    return redirect(url_for('indexp'))
 
-#CONSULTAR POR NOMBRE
+#consultar usuarios
 @app.route("/consulta")
 def consulta():
     return render_template('consultar.html')
@@ -178,6 +179,21 @@ def buscar():
     cursorCons.execute('select * from guardarusuario where Nombre = %s', [varfrutas])
     datos = cursorCons.fetchone()
     return render_template('consultar.html', listaF = datos)
+
+#consultar productos 
+@app.route("/consultap")
+def consultap():
+    return render_template('consultarp.html')
+
+@app.route("/buscarp")
+def buscarp():
+    varfrutas = request.form.get('txtNombre', False)
+    cursorCons = mysql.connection.cursor()
+    cursorCons.execute('select * from guardarproducto where Nombre = %s', [varfrutas])
+    datos = cursorCons.fetchone()
+    return render_template('consultarp.html', listaF = datos)
+
+
 
 #Ejecucion del servidor
 if __name__=='__main__':
