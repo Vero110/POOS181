@@ -12,14 +12,17 @@ mysql=MySQL(app)
 @app.route('/')
 def index():
     return render_template('index.html')
+
 #rutas de usuario
 @app.route('/usuarios')
 def usuarios():
     return render_template('ingresar.html')
+
 #rutas de productos
 @app.route('/productos')
 def productos():
     return render_template('ingresarp.html')
+
 #ruta de compra
 @app.route('/compras')
 def compras():
@@ -162,6 +165,19 @@ def eliminarBDp(id):
     mysql.connection.commit()
     flash('Se elimino el producto con id '+ id)
     return redirect(url_for('index'))
+
+#CONSULTAR POR NOMBRE
+@app.route("/consulta")
+def consulta():
+    return render_template('consultar.html')
+
+@app.route("/buscar")
+def buscar():
+    varfrutas = request.form.get('txtNombre', False)
+    cursorCons = mysql.connection.cursor()
+    cursorCons.execute('select * from guardarusuario where Nombre = %s', [varfrutas])
+    datos = cursorCons.fetchone()
+    return render_template('consultar.html', listaF = datos)
 
 #Ejecucion del servidor
 if __name__=='__main__':
