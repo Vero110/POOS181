@@ -2,7 +2,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 
-
 #inicializacion de la aplicacion: Señalar que va a trabajar con flask 
 app = Flask(__name__)
 app.config['MYSQL_HOST']= 'localhost'
@@ -63,22 +62,20 @@ def actualizar(id):
     flash('Se actualizaron los datos del Album' + varTitulo)
     return redirect(url_for('index'))
 
-@app.route('/eliminar/<id>')
+#FUNCION PARA ELIMINAR Y CONFIRMAR
+@app.route('/confirmacion/<id>')
 def eliminar(id):
-    cur = MySQL.connection.cursor()
-    cur.execute('delete FROM TB_Albums WHERE id = %s', (id,))
-    album = cur.fetchone()
-    cur.close()
+    cursorConfi = MySQL.connection.cursor()
+    cursorConfi.execute('select * from TB_Albums where id = %s', (id,))
+    consuF = cursorConfi.fetchone()
+    return render_template('eliminarAlbum.html', fruta=consuF)
 
-    return render_template('eliminarAlbum.html', albumu=album, album_id=id)
-
-@app.route('/eliminar_confirmar/<id>', methods=['POST'])
-def eliminar_confirmar(id):
-    cur = MySQL.connection.cursor()
-    cur.execute('DELETE FROM TB_Albums WHERE id = %s', (id,))
+@app.route("/eliminar/<id>", methods=['POST'])
+def eliminarBD(id):
+    cursorDlt = MySQL.connection.cursor()
+    cursorDlt.execute('delete from TB_Albums where id = %s', (id,))
     MySQL.connection.commit()
-
-    flash('Se ha eliminado el álbum')
+    flash('Se elimino con id '+ id)
     return redirect(url_for('index'))
 
 

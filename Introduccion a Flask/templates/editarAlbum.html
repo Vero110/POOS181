@@ -1,17 +1,27 @@
 {% extends 'plantillas.html'%}    
 {% block body %}
 
+    <div class="container text-center">
+            
+            <br>
+            
+            <div class ="card card-body" >
+            <h1> Album a editar: </h1>
 
-    <h1> Album a editar: </h1>
-    <br>
-    <br>
-    <form action="/actualizar/{{album.0}}" method="post">
+            <form action="/actualizar/{{album.0}}" method="post">
 
-        <input type="text" name="txtTitulo", value="{{album.1}}">
-        <input type="text" name="txtArtista", value="{{album.2}}">
-        <input type="number"  name="txtAnio", value="{{album.3}}">
+            <input type="text" name="txtTitulo", value="{{album.1}}">
+            <input type="text" name="txtArtista", value="{{album.2}}">
+            <input type="number"  name="txtAnio", value="{{album.3}}">
+            <br>
+            <br>
 
-        <button type="submit"> Actualizar </button>
-        
-    </form>
+            <button type="submit" class="btn btn-outline-danger" > <i class="bi bi-database-check"></i> </button>
+            
+            </form>
+            </div>
+        </div>
+    </div>
+
+    
 {% endblock %}

@@ -1,14 +1,20 @@
 {% extends 'plantillas.html'%}    
 {% block body %}
 
+    <div class="container text-center">
+        <div class = "col-md-25"> 
 
-    <h1>¿Desea eliminar este álbum?</h1>
-    <br>
-    <br>
-    <form action="{{ url_for('eliminar_confirmar', id=albumu['id']) }}" method="POST">
-        <button type="submit">Borrar</button>
-        <a href="{{ url_for('index') }}">Cancelar</a>
-    </form>
+            <div class ="card card-body">
+
+            <form action="/eliminar/{{fruta.0}}" method="POST">
+            <h3>¿Está seguro que desea eliminar el album "{{fruta.1}}"? </h3>
+            <div class = 'btn'><i class="bi bi-check-circle"></i> </div>
+            </form>
+            <a href="/" ><button> <i class="bi bi-x-circle"></i> </button></a>
+            <form>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
