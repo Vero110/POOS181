@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash 
 from flask_mysqldb import MySQL
-
+#pyodbc 
 app = Flask(__name__) 
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
@@ -11,6 +11,10 @@ mysql=MySQL(app)
 
 #ruta principal
 @app.route('/')
+def bienvenida():
+    return render_template('bienvenida.html')
+
+@app.route('/indexp')
 def indexp():
     return render_template('indexp.html')
 
@@ -24,28 +28,42 @@ def usuarios():
 def productos():
     return render_template('ingresarp.html')
 
+@app.route('/compra')
+def compra():
+    return render_template('ingresarcompras.html')
+
+#carrito 
+@app.route('/carrito')
+def carrito():
+    cursorEdi = mysql.connection.cursor() 
+    cursorEdi.execute('select * from comprasporusuarios')
+    conFru = cursorEdi.fetchall( ) 
+    return render_template('carrito.html', listaF = conFru)
+
 #ruta de compra
 @app.route('/compras')
 def compras():
-    return render_template('ingresarc.html')
+    cursorEdi = mysql.connection.cursor() 
+    cursorEdi.execute('select * from guardarproducto')
+    conFru = cursorEdi.fetchall( ) 
+    return render_template('ingresarc.html', listaF = conFru)
 
 # COMPRAS 
-@app.route('/comprap', methods=['GET', 'POST'])
+@app.route('/comprap', methods=['POST'])
 def comprap():
     if request.method == 'POST':
-        v_nombre = request.form['Nombre']
-        v_cantidad = request.form['Cantidad']
-        
-        if v_nombre and v_cantidad:
-            cursor = mysql.connection.cursor()
-            cursor.execute('INSERT INTO compras (nombre, cantidad) VALUES (%s, %s)', (v_nombre, v_cantidad))
-            mysql.connection.commit()
-            flash('La compra se ha agregado ')
-            return redirect(url_for('indexp'))
-        else:
-            flash('Por favor, completa todos los campos')
+        v_nombre = request.form['txtNombre']
+        v_descripcion = request.form['txtDescripcion']
+        v_precio = request.form['txtPrecio']
+        v_marca = request.form['txtMarca']
 
-    return render_template('GuardarUsuario.html')
+        cursor = mysql.connection.cursor()
+        cursor.execute('INSERT INTO comprasporusuarios (nombre, descripcion, precio, marca) VALUES (%s, %s, %s, %s)',
+                       (v_nombre, v_descripcion, v_precio, v_marca))
+        mysql.connection.commit()
+        flash('La compra se ha agregado')
+    return redirect(url_for('compra'))
+
     
 #ADMINISTRAR USUARIOS 
 #GUARDAR USUARIOS
@@ -61,7 +79,7 @@ def ingresar():
         CS.execute('insert into guardarusuario(nombre, correo, direccion, telefono) values (%s,%s,%s,%s)', (Vfruta, Vtemporada, Vprecio, Vstock))
         mysql.connection.commit()
     flash('El usuario se ha guardado correctamente')
-    return redirect(url_for('indexp'))
+    return redirect(url_for('usuarios'))
 
 #FUNCION PARA LA ACTUALIZACION DE LOS DATOS
 @app.route('/editar')
@@ -88,8 +106,8 @@ def actualizar(id):
         cursorUpd = mysql.connection.cursor()
         cursorUpd.execute('update guardarusuario set nombre = %s, correo = %s, direccion = %s, telefono = %s where id = %s', (varFruta, varTemporada, varPrecio, varStock, id))
         mysql.connection.commit()
-    flash ('El usuario '+varFruta+' se actualizo correctamente.')
-    return redirect(url_for('editar'))
+    flash('El usuario ' + varFruta + ' se actualizó correctamente.', 'success')
+    return redirect(url_for('usuarios'))
 
 #FUNCION PARA ELIMINAR Y CONFIRMAR
 @app.route('/confirmacion/<id>')
@@ -105,7 +123,7 @@ def eliminarBD(id):
     cursorDlt.execute('delete from guardarusuario where id = %s', (id,))
     mysql.connection.commit()
     flash('Se elimino el usuario con id '+ id)
-    return redirect(url_for('indexp'))
+    return redirect(url_for('usuarios'))
 
 #ADMINISTRAR PRODUCTOS 
 #guardar productos
@@ -120,8 +138,8 @@ def ingresarp():
         CS = mysql.connection.cursor()
         CS.execute('insert into guardarproducto(nombre, descripcion, precio, marca) values (%s,%s,%s,%s)', (Vfruta, Vtemporada, Vprecio, Vstock))
         mysql.connection.commit()
-    flash('El producto se ha guardado correctamente')
-    return redirect(url_for('indexp'))
+        flash('El producto se ha guardado correctamente')
+    return redirect(url_for('productos'))
 
 #FUNCION PARA LA ACTUALIZACION DE LOS DATOS
 @app.route('/editarp')
@@ -148,8 +166,8 @@ def actualizarp(id):
         cursorUpd = mysql.connection.cursor()
         cursorUpd.execute('update guardarproducto set nombre = %s, descripcion = %s, precio = %s, marca = %s where id = %s', (varFruta, varTemporada, varPrecio, varStock, id))
         mysql.connection.commit()
-    flash ('El producto '+varFruta+' se actualizo correctamente.')
-    return redirect(url_for('editarp'))
+        flash ('El producto '+varFruta+' se actualizo correctamente.')
+    return redirect(url_for('productos'))
 
 #FUNCION PARA ELIMINAR Y CONFIRMAR
 @app.route('/confirmacionp/<id>')
@@ -165,7 +183,7 @@ def eliminarBDp(id):
     cursorDlt.execute('delete from guardarproducto where id = %s', (id,))
     mysql.connection.commit()
     flash('Se elimino el producto con id '+ id)
-    return redirect(url_for('indexp'))
+    return redirect(url_for('productos'))
 
 #consultar usuarios
 @app.route("/consulta")

@@ -4,84 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingresar Usuario</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: lightcyan;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            text-align: center;
+            background-color: #f2f2f2;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+        }
+
+        .form-wrapper {
+            background-color: #ffffff;
+            padding: 30px;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            color: black;
-        }
-
-        form {
-            background-color: lavender;
-            padding: 10px;
-            width: 450px;
-            border-radius: 10px;
-            margin-top: 10px;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
 
         input[type="text"],
         input[type="number"] {
-            display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             width: 100%;
-            padding: 5px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
         button {
+            display: inline-block;
             padding: 10px 20px;
-            background-color: dodgerblue;
+            background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        a {
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #28a745;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            border-radius: 5px;
+        }
+
+        .navbar a {
+            color: white;
             text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #f2f2f2;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Agregamos estilos de Bootstrap */
+        .alert {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <br>
-    <br>
-    <form action="/ingresar" method="post">
+    <nav class="navbar">
+        <a href="/editar">Administrar Usuarios</a>
+        <a href="/consulta">Buscar</a>
+    </nav>
+    <div class="container">
+        <div class="form-wrapper">
+            <h1>Registro de Usuarios</h1>
+            {% with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                    <div class="alert alert-success">
+                        {% for msj in mensajes %}
+                            <p>{{ msj }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form action="/ingresar" method="post" onsubmit="return validateForm()">
+                <input type="text" name="txtNombre" placeholder="Nombre" required>
+                <input type="text" name="txtCorreo" placeholder="Correo" required>
+                <input type="text" name="txtDireccion" placeholder="Dirección" required>
+                <input type="number" name="txtTelefono" placeholder="Teléfono" required>
+                <div class="btn-container">
+                    <button type="submit">Guardar</button>
+                </div>
+            </form>
+            <div class="btn-container">
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Regresar</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validateForm() {
+            var nombre = document.forms[0]["txtNombre"].value;
+            var correo = document.forms[0]["txtCorreo"].value;
+            var direccion = document.forms[0]["txtDireccion"].value;
+            var telefono = document.forms[0]["txtTelefono"].value;
 
-    <h1>Registro de usuarios</h1>
-    <br>
-
-    {% with mensajes = get_flashed_messages() %}
-        {% if  mensajes %}
-            {% for msj in mensajes %}
-                <h3> {{ msj }}</h3>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    <br>
-        <input type="text" name="txtNombre" placeholder="Nombre">
-        <input type="text" name="txtCorreo" placeholder="Correo">
-        <input type="text" name="txtDireccion" placeholder="Direccion">
-        <input type="number" name="txtTelefono" placeholder="Telefono">
-        <button type="submit">Guardar</button>
-    </form>
-    <br>
-    <br>
-    <a href="/editar"><button>Administrar Usuarios</button></a>
-    <br>
-
-    <a href="/consulta"><button>Buscar </button></a>
-    <br>
-    <button type="button" onclick="window.history.back()">Regresar</button>
-
+            if (nombre === "" || correo === "" || direccion === "" || telefono === "") {
+                alert("Por favor, complete todos los campos.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>
+
+
+
+
+
+

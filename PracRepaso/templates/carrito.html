@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos guardados</title>
     <style>
-        /* Estilos generales */
         body {
             background-color: #f2f2f2;
             font-family: 'Arial', sans-serif;
@@ -18,7 +17,6 @@
             padding: 0;
         }
 
-        /* Estilos para el contenedor principal */
         .container {
             background-color: #ffffff;
             padding: 20px;
@@ -27,7 +25,6 @@
             box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Estilos para la tabla de productos */
         table {
             width: 100%;
             margin-top: 20px;
@@ -88,7 +85,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Productos disponibles</h1>
+        <br>
+        <h1>Mis Compras :)</h1>
         <table>
             <thead>
                 <tr>
@@ -97,7 +95,6 @@
                     <th>Descripción</th>
                     <th>Precio</th>
                     <th>Marca</th>
-                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,15 +105,6 @@
                     <td>{{ fru.2 }}</td>
                     <td>{{ fru.3 }}</td>
                     <td>{{ fru.4 }}</td>
-                    <td class="buttons-container">
-                        <form method="post" action="{{ url_for('comprap') }}">
-                            <input type="hidden" name="txtNombre" value="{{ fru.1 }}">
-                            <input type="hidden" name="txtDescripcion" value="{{ fru.2 }}">
-                            <input type="hidden" name="txtPrecio" value="{{ fru.3 }}">
-                            <input type="hidden" name="txtMarca" value="{{ fru.4 }}">
-                            <button type="submit" class="button">Comprar</button>
-                        </form>
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -125,5 +113,3 @@
     </div>
 </body>
 </html>
-
-
