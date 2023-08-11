@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos guardados</title>
+    <style>
+        /* Estilos generales */
+        body {
+            background-color: #f2f2f2;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos para el contenedor principal */
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para la tabla de productos */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Estilos para los botones */
+        .button {
+            padding: 6px 12px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .cancel-button {
+            padding: 6px 12px;
+            background-color: #DC3545;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .cancel-button:hover {
+            background-color: #C82333;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Productos disponibles</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Marca</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fru in listaF %}
+                <tr>
+                    <td>{{ fru.0 }}</td>
+                    <td>{{ fru.1 }}</td>
+                    <td>{{ fru.2 }}</td>
+                    <td>{{ fru.3 }}</td>
+                    <td>{{ fru.4 }}</td>
+                    <td class="buttons-container">
+                        <form method="post" action="{{ url_for('comprap') }}">
+                            <input type="hidden" name="txtNombre" value="{{ fru.1 }}">
+                            <input type="hidden" name="txtDescripcion" value="{{ fru.2 }}">
+                            <input type="hidden" name="txtPrecio" value="{{ fru.3 }}">
+                            <input type="hidden" name="txtMarca" value="{{ fru.4 }}">
+                            <button type="submit" class="button">Comprar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" onclick="window.history.back()" class="button cancel-button">Regresar</button>
+    </div>
+</body>
+</html>

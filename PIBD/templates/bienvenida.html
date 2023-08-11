@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-wrapper {
+            background-color: #ffffff;
+            padding: 30px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .custom-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #333; 
+            color: #fff;
+            text-decoration: none;
+            border: none; 
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer; /* Cambio: Cambiar el cursor al pasar el mouse por encima */
+        }
+
+        .custom-button:hover {
+            background-color: #f2f2f2; /* Cambio: Color de fondo del botón al pasar el cursor */
+        }
+
+        .icon {
+            font-size: 48px;
+            color: #333;
+        }
+
+        .icon-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background-color: #f2f2f2;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            margin: 0 auto;
+        }
+
+        .intro-text {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-wrapper">
+        <div class="icon-circle">
+            <span class="icon">&#9786;</span>
+        </div>
+        <h3>Bienvenido</h3>
+        <p class="intro-text">Seleccione una opción para continuar:</p>
+        <a href="indexp" class="custom-button">Administrador</a>
+        <a href="compras" class="custom-button">Usuarios</a>
+    </div>
+</body>
+</html>

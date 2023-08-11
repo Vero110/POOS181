@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Usuario</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .form-wrapper {
+            background-color: #ffffff;
+            padding: 30px;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #28a745;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            border-radius: 5px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #f2f2f2;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Agregamos estilos de Bootstrap */
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/editar">Administrar Usuarios</a>
+        <a href="/consulta">Buscar</a>
+    </nav>
+    <div class="container">
+        <div class="form-wrapper">
+            <h1>Registro de Usuarios</h1>
+            {% with mensajes = get_flashed_messages() %}
+                {% if mensajes %}
+                    <div class="alert alert-success">
+                        {% for msj in mensajes %}
+                            <p>{{ msj }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form action="/ingresar" method="post" onsubmit="return validateForm()">
+                <input type="text" name="txtNombre" placeholder="Nombre" required>
+                <input type="text" name="txtCorreo" placeholder="Correo" required>
+                <input type="text" name="txtDireccion" placeholder="Dirección" required>
+                <input type="number" name="txtTelefono" placeholder="Teléfono" required>
+                <div class="btn-container">
+                    <button type="submit">Guardar</button>
+                </div>
+            </form>
+            <div class="btn-container">
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Regresar</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validateForm() {
+            var nombre = document.forms[0]["txtNombre"].value;
+            var correo = document.forms[0]["txtCorreo"].value;
+            var direccion = document.forms[0]["txtDireccion"].value;
+            var telefono = document.forms[0]["txtTelefono"].value;
+
+            if (nombre === "" || correo === "" || direccion === "" || telefono === "") {
+                alert("Por favor, complete todos los campos.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

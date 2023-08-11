@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar usuario</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            width: 550px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .column-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button.cancel-button {
+            background-color: #DC3545;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button.cancel-button:hover {
+            background-color: #C82333;
+        }
+    </style>
+</head>
+<body>
+    {% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+        <div class="message">
+            {% for msj in mensajes %}
+                <p>{{ msj }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <form action="/actualizar/{{UpdateFruta.0}}" method="post">
+
+    <h1> Usuario a editar </h1>
+
+
+        <label for="txtNombre">Nombre:</label>
+        <input type="text" name="txtNombre" value="{{UpdateFruta.1}}">
+        <br>
+        <label for="txtCorreo">Correo:</label>
+        <input type="text" name="txtCorreo" value="{{UpdateFruta.2}}">
+        <br>
+
+        <label for="txtDireccion">Dirección:</label>
+        <input type="text" name="txtDireccion" value="{{UpdateFruta.3}}">
+        <br>
+
+        <label for="txtTelefono">Teléfono:</label>
+        <input type="text" name="txtTelefono" value="{{UpdateFruta.4}}">
+        <br>
+
+        <button type="submit" class="button">Actualizar</button>
+        <br>
+        <button type="button" onclick="window.history.back()" class="button cancel-button">Cancelar</button>
+
+    </form>
+</body>
+</html>

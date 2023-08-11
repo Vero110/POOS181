@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación eliminar</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            width: 550px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .column-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button.cancel-button {
+            background-color: #DC3545;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .button.cancel-button:hover {
+            background-color: #C82333;
+        }
+
+        /* Nueva clase para centrar el botón */
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-main">
+        <div class="form-conte">
+            <div class="box">
+                <form action="/eliminarp/{{fruta.0}}" method="POST">
+                    <h3>¿Está seguro que desea eliminar el producto {{fruta.1}}? </h3>
+                    <button type="submit" class="button">Confirmar</button>
+                </form>
+                <div class="button-container">
+                  <a href ="productos" button type="button" >Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
